@@ -57,13 +57,14 @@
             <div>
                 <h4>Today's Foods</h4>
             </div>
-            <table id="table" class="table table-striped table-primary">
+            <table id="table" class="table table-striped">
                 <tr class="bg-primary text-white">
                     <th>Item</th>
                     <th>Carbs(gr)</th>
                     <th>Proteins(gr)</th>
                     <th>Fats(gr)</th>
                     <th>Calories(Kcal)</th>
+                    <th>Remove Item?</th>
 
                 </tr>
                 {% for c in consumed_food %}
@@ -73,6 +74,7 @@
                     <td>{{c.food_consumed.protein}}</td>
                     <td>{{c.food_consumed.fats}}</td>
                     <td>{{c.food_consumed.calories}}</td>
+                    <td><a class="btn btn-danger" href="{% url 'delete' c.id%}">X</a></td>
                 </tr>
                 {% endfor %}
                 <tr>
@@ -81,12 +83,14 @@
                     <td id="totalProteins"><b></b></td>
                     <td id="totalFats"><b></b></td>
                     <td id="totalCalories"><b></b></td>
+                    <td id="totalCalories"><b></b></td>
+                  
                 </tr>
             </table>
         </div>
 
         <!--CHART-->
-        <div class="col-md-5 offset">
+        <div class="col-md-5">
             <div>
                 <h4>Today's intake</h4>
             </div>
@@ -128,43 +132,35 @@ document.getElementById("totalCalories").innerHTML = '<b>' + calories + '(gr) </
 var calPer = (calories/2000) * 100;
 document.getElementsByClassName("progress-bar")[0].setAttribute("style","width:"+calPer+"%");
 
+
+//percentages to be used in chart
+var total = carbs+proteins+fats;
+var carbsP=Math.round((carbs/total) *100);
+var proteinsP=Math.round((proteins/total) *100);
+var fatsP=Math.round((fats/total) *100);
+
 //CHART CODE
 var ctx = document.getElementById('myChart').getContext('2d'); //gives me access to the canvas
 var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
-        labels: ['Carbs', 'Protein', 'Fats'],
+        labels: ['Carbs ' +carbsP+'%', 'Protein ' +proteinsP+'%', 'Fats ' +fatsP+'%'],
         datasets: [{
             label: 'Macronutrients',
-            data: [12, 19, 3],
+            data: [carbsP, proteinsP, fatsP],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
                 'rgba(54, 162, 235, 1)',
                 'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 1
         }]
     },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
 });
 
 
