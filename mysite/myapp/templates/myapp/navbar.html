@@ -1,0 +1,22 @@
+{% load static %}
+
+<nav class="navbar navbar-dark bg-primary navbar-expand-lg">
+    <a class="navbar-brand" href="#">Macro Tracker</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#">Track my Macros</a>
+     
+        <a class="nav-link" href="#">Login</a>
+        <a class="nav-link" href="#">Logout</a>
+        <a class="nav-link" href="{% url 'signup' %}">Sign up!</a>
+
+
+        
+        
+      </div>
+    </div>
+  </nav>
