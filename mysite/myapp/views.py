@@ -52,7 +52,7 @@ def signup(request):
 
     return render(request, 'myapp/signup.html', {'form': form})
 
-def login(request):
+def login_user(request):
     if request.method == 'POST':
         username = request.POST['username'] 
         password = request.POST['password']
@@ -63,11 +63,11 @@ def login(request):
             return redirect('index')
         else:
             messages.success(request, ("Oops, something went wrong. Please try again"))
-            return redirect('login')
+            return redirect('login_user')
     else:    
         return render(request, 'myapp/login.html', {})
 
 def logout_user(request):
     logout(request)
     messages.success(request, ("You have logged out successfully"))
-    return redirect('login')
+    return redirect('login_user')

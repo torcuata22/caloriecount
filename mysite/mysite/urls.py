@@ -23,12 +23,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name="index"),
     path('delete/<int:id>/', views.delete_consume, name="delete"),
-    path('accounts/', include('django.contrib.auth.urls')),
+   
     path('signup/', views.signup, name='signup'),
-    path('login/', views.login, name='login'),
+    path('login/', views.login_user, name='login_user'),
+    path('logout/', views.logout_user, name='logout_user')
 
 ]
 
-    # path('login/', auth_views.LoginView.as_view(), name='login'),
-    # path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    # path('signup/', your_signup_view, name='signup'),  # Implement your own signup view

@@ -1,13 +1,10 @@
 {% extends './base.html' %}
 {% load static %}
+{% block body %}
 
-{% block content %}
-{% if user.is_authenticated %}
-    <h1>You are already logged in!</h1>
-{% else %}
 <div class="col-md-6 offset-md-3">
     <h1>Login</h1>
-    <form method="POST" action="{% url 'login' %}">
+    <form method="POST" action="{% url 'login_user' %}">
         {% csrf_token %}
         <div class="mb-3">
           <input type="text" class="form-control" name="username" placeholder="Enter your username">
@@ -18,5 +15,5 @@
         <button type="submit" class="btn btn-outline-success">Submit</button>
     </form>
 </div>
-{% endif %}
+
 {% endblock %}
