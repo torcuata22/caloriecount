@@ -2,8 +2,12 @@
 {% load static %}
 {% block body %}
 
-
-<h4>Calorie Goal</h4> <br>
+<div class="container mb-5">
+    <h2>Welcome to Macro Tracker! Our app is designed to help you monitor and 
+        achieve your daily nutritional goals, and provide users with a simple  way to eat well and 
+       maintain a healthy lifestyle.</h2>
+</div>
+<h4>Caloric Goal</h4> <br>
 
 <div class="row">
     <div class="col-md-9 offset-1">
@@ -22,7 +26,7 @@
                 <div class="form-group row">
                 {%csrf_token%}
                 <label class="col-md-2">
-                    <b>Select Food Item</b>
+                    <h5><b>Food List</b></h5>
                 </label>
                 <select class="col-md-6 form-control" name="food_consumed" id="food_consumed">
                     {% for food in foods %}
@@ -37,7 +41,7 @@
     <div class="row">
         <div class="col-md-7">
             <div>
-                <h4>Today's Foods</h4>
+                <h4>Today's Food Intake</h4>
             </div>
             <table id="table" class="table table-striped">
                 <tr class="bg-primary text-white">
@@ -66,9 +70,16 @@
                     <td id="totalFats"><b></b></td>
                     <td id="totalCalories"><b></b></td>
                     <td id="totalCalories"><b></b></td>
-                  
                 </tr>
             </table>
+            <div class="text-right mt-3">
+                <form method="post" action="{% url 'delete_all' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete All</button>
+                </form>
+            </div>
+            
+
         </div>
 
         <!--CHART-->

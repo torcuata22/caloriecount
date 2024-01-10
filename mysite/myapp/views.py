@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
+from django.utils import timezone
 from .models import Consume, Food
 from .forms import SignUpForm
 from django.contrib.auth.models import User
 # Create your views here.
 
+@login_required(login_url='/login')  
 def index(request):
     if request.method == "POST":
         food_consumed = request.POST['food_consumed']
@@ -38,6 +40,16 @@ def delete_consume(request, id):
         return redirect ('/')
     return render(request, 'myapp/delete.html')
 
+def delete_all(request):
+    if not request.user.is_authenticated:
+        return redirect('login_user')
+    
+    current_date = timezone.now().date()
+    Consume.objects.filter(user = request.user).delete()
+    messages.success(request, "All entries for today have been deleted.")
+    
+    return redirect('index')
+
 #AUTHENTICATION:
 
 def signup(request):
@@ -67,7 +79,8 @@ def login_user(request):
     else:    
         return render(request, 'myapp/login.html', {})
 
+@login_required
 def logout_user(request):
     logout(request)
     messages.success(request, ("You have logged out successfully"))
-    return redirect('login_user')
+    return redirect('login')

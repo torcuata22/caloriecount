@@ -23,10 +23,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name="index"),
     path('delete/<int:id>/', views.delete_consume, name="delete"),
-   
+    path('delete_all', views.delete_all, name="delete_all"),   
     path('signup/', views.signup, name='signup'),
-    path('login/', views.login_user, name='login_user'),
-    path('logout/', views.logout_user, name='logout_user')
+    path('login/', views.login_user, name='login'),
+    path('logout/', views.logout_user, name='logout')
 
 ]
 
